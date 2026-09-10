@@ -23,7 +23,6 @@
             padding-bottom: 90px;
         }
 
-        /* سەرەڕای پەڕە (Header) بە لۆگۆی فەرمی HAMA VIP */
         .header {
             display: flex;
             align-items: center;
@@ -76,7 +75,6 @@
             margin-bottom: 25px;
         }
 
-        /* کارتەکانی ESign با قەراغی زێڕینی درەوشاوەوە */
         .app-card {
             background-color: var(--card-bg);
             border-radius: 14px;
@@ -161,7 +159,6 @@
             box-shadow: 0 0 15px var(--gold);
         }
 
-        /* مۆنیۆی خوارەوە (Bottom Navigation Bar) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -172,7 +169,7 @@
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
+            box-shadow: -5px 20px rgba(0,0,0,0.8);
         }
 
         .nav-item {
@@ -195,7 +192,6 @@
 </head>
 <body>
 
-    <!-- سەرەتا: لۆگۆ و ناوی HAMA VIP -->
     <div class="header">
         <img src="https://kurdgo.com/upload/1853/img_c4d599657f1c50535dbed6e604b6cfa1.jpg" alt="HAMA VIP Logo">
         <span>HAMA⚡️VIP</span>
@@ -205,7 +201,7 @@
     <h1>ESign</h1>
     <p class="subtitle">Choose an ESign build to install directly on your device.</p>
 
-    <!-- کارتی یەکەم -->
+    <!-- 1. BOC International (China) Limited -->
     <div class="app-card">
         <div class="app-info-left">
             <div class="app-icon-box">E-Sign</div>
@@ -214,10 +210,10 @@
                 <p class="cert-text">Cert: BOC International (China) Limited</p>
             </div>
         </div>
-        <a href="itms-services://?action=download-manifest&url=لینک_پڵایست_مانیفێست_لێرە_دانە" class="install-btn">⬇ Install</a>
+        <a href="https://skibiditech.co/app.html" onclick="window.location.href='itms-services://?action=download-manifest&url=' + encodeURIComponent('https://skibiditech.co/plist/esign1.plist'); return false;" class="install-btn">⬇ Install</a>
     </div>
 
-    <!-- کارتی دووەم -->
+    <!-- 2. National Oilwell Varco, Inc. -->
     <div class="app-card">
         <div class="app-info-left">
             <div class="app-icon-box">E-Sign</div>
@@ -226,10 +222,10 @@
                 <p class="cert-text">Cert: National Oilwell Varco, Inc.</p>
             </div>
         </div>
-        <a href="itms-services://?action=download-manifest&url=لینک_پڵایست_مانیفێست_لێرە_دانە" class="install-btn">⬇ Install</a>
+        <a href="https://skibiditech.co/app.html" onclick="window.location.href='itms-services://?action=download-manifest&url=' + encodeURIComponent('https://skibiditech.co/plist/esign2.plist'); return false;" class="install-btn">⬇ Install</a>
     </div>
 
-    <!-- کارتی سێیەم -->
+    <!-- 3. Moving Increasingly Interconnected Technology Co., Ltd -->
     <div class="app-card">
         <div class="app-info-left">
             <div class="app-icon-box">E-Sign</div>
@@ -238,10 +234,10 @@
                 <p class="cert-text">Cert: Moving Increasingly Interconnected Technology Co., Ltd</p>
             </div>
         </div>
-        <a href="itms-services://?action=download-manifest&url=لینک_پڵایست_مانیفێست_لێرە_دانە" class="install-btn">⬇ Install</a>
+        <a href="https://skibiditech.co/app.html" onclick="window.location.href='itms-services://?action=download-manifest&url=' + encodeURIComponent('https://skibiditech.co/plist/esign3.plist'); return false;" class="install-btn">⬇ Install</a>
     </div>
 
-    <!-- کارتی چوارەم -->
+    <!-- 4. Viet Nam Rubber Group Limited -->
     <div class="app-card">
         <div class="app-info-left">
             <div class="app-icon-box">E-Sign</div>
@@ -250,10 +246,9 @@
                 <p class="cert-text">Cert: Viet Nam Rubber Group Limited</p>
             </div>
         </div>
-        <a href="itms-services://?action=download-manifest&url=لینک_پڵایست_مانیفێست_لێرە_دانە" class="install-btn">⬇ Install</a>
+        <a href="https://skibiditech.co/app.html" onclick="window.location.href='itms-services://?action=download-manifest&url=' + encodeURIComponent('https://skibiditech.co/plist/esign4.plist'); return false;" class="install-btn">⬇ Install</a>
     </div>
 
-    <!-- مۆنیۆی خوارەوە (Bottom Nav) -->
     <div class="bottom-nav">
         <a href="#" class="nav-item active">
             <div>📱</div>
