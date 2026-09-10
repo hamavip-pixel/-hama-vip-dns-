@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAMA⚡️VIP - App Downloads</title>
+    <title>HAMA⚡️VIP - App Downloads & DNS</title>
     <style>
         :root {
             --bg-color: #0b0b0e;
@@ -23,13 +23,13 @@
             padding-bottom: 90px;
         }
 
-        /* سەرەڕای پەڕە (Header) */
+        /* سەرەڕای پەڕە (Header) بە لۆگۆی HAMA VIP */
         .header {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 25px;
-            padding: 10px;
+            padding: 10px 15px;
             background: var(--card-bg);
             border-radius: 14px;
             border: 2px solid transparent;
@@ -76,7 +76,7 @@
             margin-bottom: 25px;
         }
 
-        /* کاتەکانی داگرتنی ئەپ (ESign Cards) با قەراغی زێڕینەوە */
+        /* کارتی ئەپەکان با قەراغی زێڕینی درەوشاوەوە */
         .app-card {
             background-color: var(--card-bg);
             border-radius: 14px;
@@ -202,10 +202,23 @@
     </div>
 
     <div class="app-downloads-title">APP DOWNLOADS</div>
-    <h1>ESign</h1>
-    <p class="subtitle">Choose an ESign build to install on your device.</p>
+    <h1>ESign & DNS</h1>
+    <p class="subtitle">Choose a build or install your profile to start.</p>
 
-    <!-- کارتی یەکەم -->
+    <!-- کارتی داگرتنی پڕۆفایلی DNS -->
+    <div class="app-card" style="background-image: linear-gradient(var(--card-bg), var(--card-bg)), linear-gradient(135deg, var(--gold), #553300, var(--gold));">
+        <div class="app-info-left">
+            <div class="app-icon-box" style="background: linear-gradient(135deg, var(--gold), #997300); color: #000;">DNS</div>
+            <div class="app-details">
+                <h3>HAMA VIP Profile <span class="featured-badge">Official</span></h3>
+                <p class="cert-text">Secure DNS & Web Clip Installation</p>
+            </div>
+        </div>
+        <!-- لێرەدا فایلی mobileconfigـەکەت بەستراوەتەوە -->
+        <a href="hama_vip.mobileconfig" download class="install-btn">⬇ Install</a>
+    </div>
+
+    <!-- کارتی یەکەمی ESign -->
     <div class="app-card">
         <div class="app-info-left">
             <div class="app-icon-box">E-Sign</div>
@@ -217,25 +230,13 @@
         <a href="#" class="install-btn">⬇ Install</a>
     </div>
 
-    <!-- کارتی دووەم -->
+    <!-- کارتی دووەمی ESign -->
     <div class="app-card">
         <div class="app-info-left">
             <div class="app-icon-box">E-Sign</div>
             <div class="app-details">
                 <h3>ESign <span class="featured-badge">Featured</span></h3>
                 <p class="cert-text">Cert: National Oilwell Varco, Inc.</p>
-            </div>
-        </div>
-        <a href="#" class="install-btn">⬇ Install</a>
-    </div>
-
-    <!-- کارتی سێیەم -->
-    <div class="app-card">
-        <div class="app-info-left">
-            <div class="app-icon-box">E-Sign</div>
-            <div class="app-details">
-                <h3>ESign</h3>
-                <p class="cert-text">Cert: Moving Increasingly Interconnected Technology Co., Ltd</p>
             </div>
         </div>
         <a href="#" class="install-btn">⬇ Install</a>
