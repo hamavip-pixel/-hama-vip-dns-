@@ -138,8 +138,8 @@
                     <p style="text-align: center; color: #ff4444; font-weight: bold; margin-bottom: 12px;">⚠️ وا بەکار دەکرێت و وابەکار نایەت:</p>
                     
                     <div style="background: #080808; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 13px; line-height: 1.6; color: #ddd; margin-bottom: 15px;">
-                        • <b>چۆنیەتی بەکارهێنانی ڕاست:</b> سەرەتا لە بەشی پەیوەندیدار (پریمیۆم یان فڕی) فایلی IPA یان کلیلەکەت بەکاربهێنە. دڵنیابە لەوەی فایلەکان و مانیفێست بە ڕێکی ئامادەن.<br><br>
-                        • <b>شێوازی هەڵە (وابەکار نایەت):</b> هەرگز هەوڵ مەدە بە شێوازی هەڕەمەکی فایلەکان بگۆڕیت یان بەبێ کلیل و ڕێکارە سەرەکییەکان داواکاری بنێریت، چونکە سیستمی ئایفۆن و سێرڤەرەکە پشتگیری ناکەن و کار ناکات.
+                        • <b>چۆنیەتی بەکارهێنانی ڕاست:</b> سەرەتا لە بەشی پەیوەندیدار (پریمیۆم یان فڕی) فایلی IPA یان کلیلەکەت بەکاربهێنە. دڵنیابە لەوەی فایلەکان لە سنووری دیاریکراودا بن.<br><br>
+                        • <b>شێوازی هەڵە (وابەکار نایەت):</b> هەرگز هەوڵ مەدە فایلی قورس (لە 2GB زیاتر) بخەیتە بەشی فڕیەوە، چونکە سێرڤەرەکە ڕەتیدەکاتەوە و قەدەغەیە.
                     </div>
 
                     <button class="btn" onclick="backToWelcome()">← گەڕانەوە بۆ سەرەتا</button>
@@ -194,6 +194,8 @@
                         <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
                     </div>
                     <input type="file" id="freeFileInput" style="display: none;" accept=".ipa" onchange="handleFile(this, 'free')">
+
+                    <p id="freeErrorMsg" style="margin-top: 12px; font-size: 13px; text-align: center; line-height: 1.6; display: none;"></p>
 
                     <div id="freeDownloadBox" style="display: none; margin-top: 15px;">
                         <a href="#" class="btn btn-free" id="freeDownloadBtn" download>داونلۆدکردنی فایلی IPA</a>
@@ -266,6 +268,28 @@
             if (input.files && input.files[0]) {
                 let file = input.files[0];
                 let fileName = file.name;
+                let fileSize = file.size; // قەبارەی فایل بە باایت
+                
+                // پشکنینی قەبارە تەنها بۆ بەشی فری (2GB = 2 * 1024 * 1024 * 1024 باایت)
+                if(type === 'free') {
+                    let maxFreeSize = 2 * 1024 * 1024 * 1024;
+                    let errorMsgBox = document.getElementById('freeErrorMsg');
+                    let downloadBox = document.getElementById('freeDownloadBox');
+                    
+                    if(fileSize > maxFreeSize) {
+                        // ئەگەر لە 2GB زیاتر بوو، ڕستەکەت دەردەخات و فایلەکە ڕەتدەکاتەوە
+                        errorMsgBox.style.color = "#ff4444";
+                        errorMsgBox.innerHTML = "بەڕێزم ئەمە بەشی فری سێرڤەرەکەمانە ❤️<br>بۆیە بەڕێزم بەشی فری سێرڤەرەکەمان..!!<br>توانای 2GB هەیە❤️😍.";
+                        errorMsgBox.style.display = 'block';
+                        downloadBox.style.display = 'none';
+                        document.getElementById('freeFileText').innerText = "فایلی IPA هەڵبژێرە (تاوەکو 2GB)";
+                        input.value = ""; // سڕینەوەی فایلی هەڵە
+                        return;
+                    } else {
+                        errorMsgBox.style.display = 'none';
+                    }
+                }
+
                 let fileURL = URL.createObjectURL(file);
                 
                 if(type === 'pro') {
