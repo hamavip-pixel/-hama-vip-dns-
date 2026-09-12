@@ -1,5 +1,4 @@
 window.HxServerKey = {
-    // 100 کلیلی تایبەت بۆ سێرڤەری HAMA⚡️VIP
     keys: {
         "HAMA-VIP-001": true, "HAMA-VIP-002": true, "HAMA-VIP-003": true, "HAMA-VIP-004": true, "HAMA-VIP-005": true,
         "HAMA-VIP-006": true, "HAMA-VIP-007": true, "HAMA-VIP-008": true, "HAMA-VIP-009": true, "HAMA-VIP-010": true,
