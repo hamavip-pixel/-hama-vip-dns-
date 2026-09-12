@@ -40,55 +40,117 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         .logo-container {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 15px auto;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
-            overflow: hidden;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 90px; height: 90px; margin: 0 auto 15px auto; border-radius: 50%;
+            border: 2px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow);
+            overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center;
         }
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
         h1 { font-size: 22px; margin-bottom: 8px; color: var(--text-main); }
         p { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; }
         .btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            border-radius: 14px;
-            background: #181818;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: 0.3s;
+            display: block; width: 100%; padding: 16px; border-radius: 14px; background: #181818;
+            border: 1px solid var(--border-color); color: var(--text-main); font-size: 15px; font-weight: 600;
+            margin-bottom: 12px; cursor: pointer; transition: 0.3s; text-align: center;
         }
         .btn:hover { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
         .btn-pro { background: linear-gradient(135deg, rgba(0,255,204,0.15), rgba(0,255,204,0.02)); border-color: var(--accent); color: var(--accent); }
+        .section-box { display: none; margin-top: 15px; text-align: right; }
+        .input-field {
+            width: 100%; padding: 14px; background: #080808; border: 1px solid var(--border-color);
+            border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; text-align: center; margin-bottom: 10px;
+        }
+        .file-box {
+            background: #080808; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; margin-top: 10px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
+        <div class="card" id="mainCard">
             <div class="logo-container">
                 <img src="IMG_0045.jpeg" alt="Hx-Speech Logo">
             </div>
             <h1>Hx-Speech Portal</h1>
-            <p>سیستمی داگرتنی فایل و بەشی پریمیۆمی پارێزراو</p>
+            <p>سیستمی داگرتنی فایل و بەشی پریمیۆم</p>
             
-            <a href="premium.html" class="btn btn-pro">⭐ بەشی پریمیۆم (PRO) - داگرتنی تاوەکو 5GB</a>
-            <a href="free.html" class="btn">🌐 بەشی فڕی (Free) - داگرتنی تاوەکو 2GB</a>
+            <button class="btn btn-pro" onclick="openSection('premium')">⭐ بەشی پریمیۆم (PRO) - تا 5GB</button>
+            <button class="btn" onclick="openSection('free')">🌐 بەشی فڕی (Free) - تا 2GB</button>
+        </div>
+
+        <div class="card section-box" id="freeSection">
+            <h3 style="color: var(--accent); text-align: center; margin-bottom: 10px;">بەشی فڕی (Free)</h3>
+            <p style="text-align: center;">داگرتنی ڕاستەوخۆی فایلی IPA بێ کلیل (تاوەکو 2GB)</p>
+            <div class="file-box">
+                <div>
+                    <h4 style="font-size: 15px; color: #fff;">فایلی IPA ی فڕی</h4>
+                    <span style="font-size: 12px; color: var(--text-sub);">بێ کلیل • تاوەکو 2GB</span>
+                </div>
+                <a href="free-app.ipa" class="btn" style="width: auto; padding: 10px 16px; margin:0;" download>داگرتن</a>
+            </div>
+            <button class="btn" style="margin-top: 15px; background: #222;" onclick="goHome()">← گەڕانەوە</button>
+        </div>
+
+        <div class="card section-box" id="premiumSection">
+            <h3 style="color: var(--accent); text-align: center; margin-bottom: 10px;">بەشی پریمیۆم (PRO)</h3>
+            <p style="text-align: center;">داگرتنی فایل تاوەکو 5GB بە کلیل</p>
+            
+            <div id="keyBox">
+                <input type="text" id="proKeyInput" class="input-field" placeholder="کلیلەکەت لێرە بنووسە...">
+                <button class="btn btn-pro" style="margin:0;" onclick="activateKey()">چالاککردنی کلیل</button>
+                <p id="msgResult" style="margin-top: 10px; font-size: 13px; text-align: center;"></p>
+            </div>
+
+            <div id="downloadBox" style="display: none; margin-top: 15px;">
+                <p style="color: var(--accent); text-align: center; margin-bottom: 10px;">✓ بەشی پرۆ چالاکە</p>
+                <div class="file-box">
+                    <div>
+                        <h4 style="font-size: 15px; color: #fff;">فایلی IPA (تایبەت)</h4>
+                        <span style="font-size: 12px; color: var(--text-sub);">بە کلیل • تاوەکو 5GB</span>
+                    </div>
+                    <a href="app.ipa" class="btn" style="width: auto; padding: 10px 16px; margin:0;" download>داگرتن</a>
+                </div>
+            </div>
+            <button class="btn" style="margin-top: 15px; background: #222;" onclick="goHome()">← گەڕانەوە</button>
         </div>
     </div>
+
+    <script src="servarkey.js"></script>
+    <script>
+        function openSection(sec) {
+            document.getElementById('mainCard').style.display = 'none';
+            if(sec === 'free') {
+                document.getElementById('freeSection').style.display = 'block';
+            } else if(sec === 'premium') {
+                document.getElementById('premiumSection').style.display = 'block';
+                if(window.HxServerKey && window.HxServerKey.isProActive()) {
+                    document.getElementById('keyBox').style.display = 'none';
+                    document.getElementById('downloadBox').style.display = 'block';
+                }
+            }
+        }
+
+        function goHome() {
+            document.getElementById('freeSection').style.display = 'none';
+            document.getElementById('premiumSection').style.display = 'none';
+            document.getElementById('mainCard').style.display = 'block';
+        }
+
+        function activateKey() {
+            let val = document.getElementById('proKeyInput').value;
+            let res = window.HxServerKey.verifyKey(val);
+            let msgBox = document.getElementById('msgResult');
+            msgBox.innerText = res.msg;
+            if (res.success) {
+                msgBox.style.color = "#00ffcc";
+                setTimeout(() => {
+                    document.getElementById('keyBox').style.display = 'none';
+                    document.getElementById('downloadBox').style.display = 'block';
+                }, 1000);
+            } else {
+                msgBox.style.color = "#ff4444";
+            }
+        }
+    </script>
 </body>
 </html>
