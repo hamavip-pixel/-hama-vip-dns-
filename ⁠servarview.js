@@ -1,14 +1,12 @@
-// servarview.js - Local Storage Visitor Counter
+// servarview.js - Immediate Visitor Counter
 (function() {
-    function initVisitorCounter() {
+    function addCounter() {
         if (document.getElementById('hama-visitor-counter')) return;
 
-        // ژماردنی سەردانەکان لە ناوخۆی بڕاوزەری بەکارهێنەران بە شێوازێکی زۆر خاوێن
         let visits = localStorage.getItem('hama_server_visits');
         if (!visits) {
-            visits = 1; // ئەگەر یەکەم جار بوو، لە 1 دەست پێدەکات
+            visits = 1;
         } else {
-            // ئەگەر لە دانیشتنێکی نوێدا هاتە ژوورەوە یان پەیجەکە گۆڕی، ژمارەکە زیاد دەکات
             if (!sessionStorage.getItem('hama_visited_session')) {
                 visits = parseInt(visits) + 1;
                 sessionStorage.setItem('hama_visited_session', 'true');
@@ -41,9 +39,9 @@
         document.body.appendChild(counterBox);
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initVisitorCounter);
+    if (document.body) {
+        addCounter();
     } else {
-        initVisitorCounter();
+        document.addEventListener('DOMContentLoaded', addCounter);
     }
 })();
