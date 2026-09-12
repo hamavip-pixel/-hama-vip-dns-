@@ -1,49 +1,91 @@
 /**
- * Hx-Speech Portal - Server Key & Security Engine
- * Author: MATiX (HAMA VIP)
+ * Hx-Speech Portal - Secure 50-Key Database System
+ * Author: MATiX
  */
 
 (function () {
     'use strict';
 
-    const SERVER_CONFIG = {
-        name: "Hx-Speech Secure Server",
-        version: "4.5.0",
-        status: "Active",
-        sslEnabled: true,
-        endpoint: "https://hamavip-pixel.github.io/hx-speech/"
+    // ٥٠ کلیلی سێرڤەر (هەر یەکێکیان تەنها بۆ یەک کەس کار دەکات)
+    const SERVER_KEYS = {
+        "HX-PRO-JIN9X": { used: false, maxLimit: "5GB" },
+        "HAMA-VIP-2026-X1": { used: false, maxLimit: "5GB" },
+        "MATRIX-KEY-777": { used: false, maxLimit: "5GB" },
+        "HX-SPEECH-SECURE-99": { used: false, maxLimit: "5GB" },
+        "VIP-MASTER-KEY-01": { used: false, maxLimit: "5GB" },
+        "SECURE-ACCESS-88X": { used: false, maxLimit: "5GB" },
+        "HX-PRO-ULTRA-55": { used: false, maxLimit: "5GB" },
+        "HAMA-VIP-ACCESS-9": { used: false, maxLimit: "5GB" },
+        "DEV-MATRIX-KEY-404": { used: false, maxLimit: "5GB" },
+        "HX-SPEECH-VIP-PRO": { used: false, maxLimit: "5GB" },
+        "PRO-KEY-ALPHA-11": { used: false, maxLimit: "5GB" },
+        "PRO-KEY-BETA-22": { used: false, maxLimit: "5GB" },
+        "PRO-KEY-GAMMA-33": { used: false, maxLimit: "5GB" },
+        "PRO-KEY-DELTA-44": { used: false, maxLimit: "5GB" },
+        "PRO-KEY-OMEGA-55": { used: false, maxLimit: "5GB" },
+        "VIP-USER-XOR-01": { used: false, maxLimit: "5GB" },
+        "VIP-USER-XOR-02": { used: false, maxLimit: "5GB" },
+        "VIP-USER-XOR-03": { used: false, maxLimit: "5GB" },
+        "VIP-USER-XOR-04": { used: false, maxLimit: "5GB" },
+        "VIP-USER-XOR-05": { used: false, maxLimit: "5GB" },
+        "HX-ELITE-KEY-100": { used: false, maxLimit: "5GB" },
+        "HX-ELITE-KEY-200": { used: false, maxLimit: "5GB" },
+        "HX-ELITE-KEY-300": { used: false, maxLimit: "5GB" },
+        "HX-ELITE-KEY-400": { used: false, maxLimit: "5GB" },
+        "HX-ELITE-KEY-500": { used: false, maxLimit: "5GB" },
+        "MATRIX-PRIME-1": { used: false, maxLimit: "5GB" },
+        "MATRIX-PRIME-2": { used: false, maxLimit: "5GB" },
+        "MATRIX-PRIME-3": { used: false, maxLimit: "5GB" },
+        "MATRIX-PRIME-4": { used: false, maxLimit: "5GB" },
+        "MATRIX-PRIME-5": { used: false, maxLimit: "5GB" },
+        "SECURE-PASS-901": { used: false, maxLimit: "5GB" },
+        "SECURE-PASS-902": { used: false, maxLimit: "5GB" },
+        "SECURE-PASS-903": { used: false, maxLimit: "5GB" },
+        "SECURE-PASS-904": { used: false, maxLimit: "5GB" },
+        "SECURE-PASS-905": { used: false, maxLimit: "5GB" },
+        "HAMA-GOLD-KEY-1": { used: false, maxLimit: "5GB" },
+        "HAMA-GOLD-KEY-2": { used: false, maxLimit: "5GB" },
+        "HAMA-GOLD-KEY-3": { used: false, maxLimit: "5GB" },
+        "HAMA-GOLD-KEY-4": { used: false, maxLimit: "5GB" },
+        "HAMA-GOLD-KEY-5": { used: false, maxLimit: "5GB" },
+        "ULTRA-VIP-PASS-1": { used: false, maxLimit: "5GB" },
+        "ULTRA-VIP-PASS-2": { used: false, maxLimit: "5GB" },
+        "ULTRA-VIP-PASS-3": { used: false, maxLimit: "5GB" },
+        "ULTRA-VIP-PASS-4": { used: false, maxLimit: "5GB" },
+        "ULTRA-VIP-PASS-5": { used: false, maxLimit: "5GB" },
+        "HX-SPEECH-PRO-MAX": { used: false, maxLimit: "5GB" },
+        "HX-SPEECH-ULTIMATE": { used: false, maxLimit: "5GB" },
+        "HX-SPEECH-EXCLUSIVE": { used: false, maxLimit: "5GB" },
+        "HX-SPEECH-INFINITY": { used: false, maxLimit: "5GB" },
+        "HX-SPEECH-GENESIS": { used: false, maxLimit: "5GB" }
     };
 
-    // ١٠ کلیلی پەسەندکراو و چالاککراو لە سێرڤەردا
-    const VALID_KEYS = [
-        "HX-PRO-JIN9X",
-        "HAMA-VIP-2026-X1",
-        "MATRIX-KEY-777",
-        "HX-SPEECH-SECURE-99",
-        "VIP-MASTER-KEY-01",
-        "SECURE-ACCESS-88X",
-        "HX-PRO-ULTRA-55",
-        "HAMA-VIP-ACCESS-9",
-        "DEV-MATRIX-KEY-404",
-        "HX-SPEECH-VIP-PRO"
-    ];
-
-    function initServerKeyModule() {
-        console.log(`[${SERVER_CONFIG.name}] Initialized successfully.`);
-        console.log(`Status: ${SERVER_CONFIG.status} | SSL: ${SERVER_CONFIG.sslEnabled}`);
-    }
-
-    // سیستمی پشکنین و بەڕێوەبردنی کلیلەکان
     window.HxServerKey = {
-        getInfo: function() {
-            return SERVER_CONFIG;
+        verifyKey: function(keyInput) {
+            if (!keyInput) return { success: false, msg: "تکایە کلیل بنووسە!" };
+            
+            let cleanKey = keyInput.trim();
+
+            let savedActiveKey = localStorage.getItem("hx_active_pro_key");
+            if (savedActiveKey === cleanKey) {
+                return { success: true, msg: "✓ ئەم کلیلە پێشتر لەسەر ئەم ئامێرە چالاک کراوە!" };
+            }
+
+            if (SERVER_KEYS.hasOwnProperty(cleanKey)) {
+                if (localStorage.getItem("key_used_" + cleanKey) === "true") {
+                    return { success: false, msg: "✕ ببورە، ئەم کلیلە پێشتر لەلایەن کەسێکی ترەوە بەکارهاتووە!" };
+                }
+
+                localStorage.setItem("key_used_" + cleanKey, "true");
+                localStorage.setItem("hx_active_pro_key", cleanKey);
+                return { success: true, msg: "✓ پیرۆزە! بەشی پرۆ (PRO) بە سەرکەوتوویی بۆت کرایەوە." };
+            }
+
+            return { success: false, msg: "✕ کلیلەکە هەڵەیە یان بوونی نییە!" };
         },
-        verifyKey: function(keyString) {
-            if (!keyString) return false;
-            // پشکنینی ڕاستەقینەی کلیل لەگەڵ لیستی سێرڤەردا (بێ جیاوازی پیتە گەورە و بچووکەکان)
-            return VALID_KEYS.includes(keyString.trim());
+
+        isProActive: function() {
+            return localStorage.getItem("hx_active_pro_key") !== null;
         }
     };
-
-    initServerKeyModule();
 })();
