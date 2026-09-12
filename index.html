@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HAMA⚡️VIP | Ultimate Portal</title>
+    <link rel="icon" type="image/jpeg" href="IMG_0045.jpeg">
     <style>
         :root {
             --bg-color: #040404;
@@ -27,6 +28,7 @@
         }
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         
+        /* بازنە و چوارچێوەی گۆڵدی خولاوە کە دەوریدا دەخولێتەوە */
         .gold-border-box {
             position: relative;
             width: 100%;
@@ -55,6 +57,14 @@
             text-align: center;
             z-index: 2;
         }
+
+        /* لۆگۆ و نوسینی گۆڵدی خولاوە */
+        .logo-container {
+            width: 80px; height: 80px; margin: 0 auto 12px auto; border-radius: 50%;
+            border: 2px solid var(--accent); box-shadow: 0 0 15px rgba(255,215,0,0.4);
+            overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center;
+        }
+        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
         .vip-badge {
             font-size: 18px;
@@ -101,6 +111,10 @@
     <div class="container">
         <div class="gold-border-box">
             <div class="card-inner">
+                <!-- لۆگۆ -->
+                <div class="logo-container">
+                    <img src="IMG_0045.jpeg" alt="HAMA Logo">
+                </div>
                 <div class="vip-badge">HAMA⚡️VIP</div>
 
                 <!-- سەرەتا: دوو دوگمەکە (پریمیۆم و فڕی) -->
@@ -129,10 +143,10 @@
                             <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="proFileText">Drop your .ipa file here (Max 5GB)</p>
                             <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
                         </div>
-                        <input type="file" id="proFileInput" style="display: none;" accept=".ipa,image/*,video/*" onchange="handleFile(this, 'pro')">
+                        <input type="file" id="proFileInput" style="display: none;" onchange="handleFile(this, 'pro')">
 
                         <div id="proDownloadBox" style="display: none; margin-top: 15px;">
-                            <button class="btn" onclick="startDownload('app.ipa', this)">داونلۆدդ..</button>
+                            <button class="btn" id="proDownloadBtn" onclick="startDownload('app.ipa', this)">داونلۆدդ..</button>
                         </div>
                     </div>
 
@@ -149,10 +163,10 @@
                         <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="freeFileText">Drop your .ipa file here (Max 2GB)</p>
                         <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
                     </div>
-                    <input type="file" id="freeFileInput" style="display: none;" accept=".ipa,image/*,video/*" onchange="handleFile(this, 'free')">
+                    <input type="file" id="freeFileInput" style="display: none;" onchange="handleFile(this, 'free')">
 
                     <div id="freeDownloadBox" style="display: none; margin-top: 15px;">
-                        <button class="btn btn-free" onclick="startDownload('free-app.ipa', this)">داونلۆدդ..</button>
+                        <button class="btn btn-free" id="freeDownloadBtn" onclick="startDownload('free-app.ipa', this)">داونلۆدդ..</button>
                     </div>
 
                     <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goHome()">← گەڕانەوە</button>
@@ -185,22 +199,13 @@
             let val = document.getElementById('proKeyInput').value.trim();
             let msgBox = document.getElementById('msgResult');
             
-            // پشکنین بە ڕێگەی فایلی servarkey.js
+            let isValid = false;
             if (window.HxServerKey && typeof window.HxServerKey.verifyKey === 'function') {
                 let res = window.HxServerKey.verifyKey(val);
-                if (res.success) {
-                    msgBox.style.color = "#ffd700";
-                    msgBox.innerText = "کلیلەکە ڕاست بوو\nچونەناو بەشی پڕووییم..";
-                    setTimeout(() => {
-                        document.getElementById('keyActivationSection').style.display = 'none';
-                        document.getElementById('proContentArea').style.display = 'block';
-                    }, 1200);
-                    return;
-                }
+                if (res.success) isValid = true;
             }
             
-            // ئەگەر کلیلەکە لە لیستەکەدا بێت ڕاستەوخۆ قەبووڵی دەکات
-            if (val.length > 3) {
+            if (isValid || val.length > 3) {
                 msgBox.style.color = "#ffd700";
                 msgBox.innerText = "کلیلەکە ڕاست بوو\nچونەناو بەشی پڕووییم..";
                 setTimeout(() => {
@@ -217,10 +222,10 @@
             if (input.files && input.files[0]) {
                 let fileName = input.files[0].name;
                 if(type === 'pro') {
-                    document.getElementById('proFileText').innerText = "فایل: " + fileName;
+                    document.getElementById('proFileText').innerText = "فایل هەڵبژێردرا: " + fileName;
                     document.getElementById('proDownloadBox').style.display = 'block';
                 } else {
-                    document.getElementById('freeFileText').innerText = "فایل: " + fileName;
+                    document.getElementById('freeFileText').innerText = "فایل هەڵبژێردرا: " + fileName;
                     document.getElementById('freeDownloadBox').style.display = 'block';
                 }
             }
