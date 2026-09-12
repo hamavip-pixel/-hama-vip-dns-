@@ -138,14 +138,14 @@
                     <p style="text-align: center; color: #ff4444; font-weight: bold; margin-bottom: 12px;">⚠️ وا بەکار دەکرێت و وابەکار نایەت:</p>
                     
                     <div style="background: #080808; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 13px; line-height: 1.6; color: #ddd; margin-bottom: 15px;">
-                        • <b>چۆنیەتی بەکارهێنانی ڕاست:</b> سەرەتا لە بەشی پەیوەندیدار (پریمیۆم یان فڕی) فایلی IPA یان کلیلەکەت بەکاربهێنە. دڵنیابە لەوەی فایلەکان لە سنووری دیاریکراودا بن.<br><br>
-                        • <b>شێوازی هەڵە (وابەکار نایەت):</b> هەرگز هەوڵ مەدە فایلی قورس (لە 2GB زیاتر) بخەیتە بەشی فڕیەوە، چونکە سێرڤەرەکە ڕەتیدەکاتەوە و قەدەغەیە.
+                        • <b>چۆنیەتی بەکارهێنانی ڕاست:</b> لە بەشی پریمیۆم بە کلیلە تایبەتەکان دەتوانیت ڕاستەوخۆ هاکی پۆبجی دابەزێنیتە سەر شاشەی سەرەکیی مۆبایلەکەت.<br><br>
+                        • <b>شێوازی هەڵە (وابەکار نایەت):</b> فایلە قورسەکان (وەک پۆبجی لە 2GB زیاتر) لە بەشی فڕی کار ناکەن و دەبێت تەنها لە بەشی پریمیۆم بەکاربهێنرێن.
                     </div>
 
                     <button class="btn" onclick="backToWelcome()">← گەڕانەوە بۆ سەرەتا</button>
                 </div>
 
-                <!-- ناوەکی سەرەکی وێبسایت (گەر بڵێت بەڵێ دەزانم) -->
+                <!-- ناوەکی سەرەکی وێبسایت -->
                 <div id="homePortal" style="display: none;">
                     <a href="https://t.me/hama_vip1" target="_blank" class="btn btn-channel">لەسەر لینکی چەناڵی سەرەکی…</a>
 
@@ -167,16 +167,26 @@
                         <p id="msgResult" style="margin-top: 10px; font-size: 13px; text-align: center;"></p>
                     </div>
 
-                    <div id="proContentArea" style="display: none;">
-                        <div class="drop-zone" onclick="document.getElementById('proFileInput').click();">
+                    <!-- بەشی تایبەتی هاکی پۆبجی (پاش کردنەوەی کلیل) -->
+                    <div id="proContentArea" style="display: none; text-align: center;">
+                        <p style="color: #ffd700; font-weight: bold; margin-bottom: 12px;">🔥 فایلی تایبەتی هاکی پۆبجی ئامادەیە:</p>
+                        
+                        <!-- دوگمەی داونلۆدی هاکی پۆبجی بۆ سەر Home Screen -->
+                        <a href="itms-services://?action=download-manifest&url=https://t.me/hama_vip2/209" class="btn" style="background: linear-gradient(135deg, #ffd700, #ff8c00); color: #000; font-weight: 800; padding: 16px;">
+                            HAMA⚡️VIP.HACK.PUBG
+                        </a>
+                        <span style="font-size: 11px; color: var::(--text-sub); display: block; margin-top: 5px;">کرتە بکە بۆ داگرتنی ڕاستەوخۆ سەر Home Screen</span>
+
+                        <!-- فایلی تاقیکاری تریش ئەگەرت هەوێت دابنێیت -->
+                        <div class="drop-zone" style="margin-top: 20px;" onclick="document.getElementById('proFileInput').click();">
                             <div class="upload-icon">⬆</div>
-                            <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="proFileText">فایلی IPA هەڵبژێرە (تاوەکو 5GB)</p>
-                            <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
+                            <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="proFileText">فایلی تری IPA هەڵبژێرە (تاوەکو 5GB)</p>
+                            <span style="font-size: 11px; color: var(--text-sub);">Choose Custom File</span>
                         </div>
                         <input type="file" id="proFileInput" style="display: none;" accept=".ipa" onchange="handleFile(this, 'pro')">
 
                         <div id="proDownloadBox" style="display: none; margin-top: 15px;">
-                            <a href="#" class="btn" id="proDownloadBtn" download>داونلۆدکردنی فایلی IPA</a>
+                            <a href="#" class="btn" id="proDownloadBtn" download>داونلۆدکردنی فایلی هەڵبژێردراو</a>
                         </div>
                     </div>
 
@@ -268,22 +278,20 @@
             if (input.files && input.files[0]) {
                 let file = input.files[0];
                 let fileName = file.name;
-                let fileSize = file.size; // قەبارەی فایل بە باایت
+                let fileSize = file.size;
                 
-                // پشکنینی قەبارە تەنها بۆ بەشی فری (2GB = 2 * 1024 * 1024 * 1024 باایت)
                 if(type === 'free') {
                     let maxFreeSize = 2 * 1024 * 1024 * 1024;
                     let errorMsgBox = document.getElementById('freeErrorMsg');
                     let downloadBox = document.getElementById('freeDownloadBox');
                     
                     if(fileSize > maxFreeSize) {
-                        // ئەگەر لە 2GB زیاتر بوو، ڕستەکەت دەردەخات و فایلەکە ڕەتدەکاتەوە
                         errorMsgBox.style.color = "#ff4444";
                         errorMsgBox.innerHTML = "بەڕێزم ئەمە بەشی فری سێرڤەرەکەمانە ❤️<br>بۆیە بەڕێزم بەشی فری سێرڤەرەکەمان..!!<br>توانای 2GB هەیە❤️😍.";
                         errorMsgBox.style.display = 'block';
                         downloadBox.style.display = 'none';
                         document.getElementById('freeFileText').innerText = "فایلی IPA هەڵبژێرە (تاوەکو 2GB)";
-                        input.value = ""; // سڕینەوەی فایلی هەڵە
+                        input.value = "";
                         return;
                     } else {
                         errorMsgBox.style.display = 'none';
