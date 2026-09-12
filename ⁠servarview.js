@@ -1,8 +1,20 @@
-// servarview.js - Real-time Visitor Counter
+// servarview.js - Local Storage Visitor Counter
 (function() {
-    // دروستکردنی بۆکسەکە بۆ پیشاندانی ژمارەی سەردانەکان بە دیزاینێکی سەرنجڕاکێش
     function initVisitorCounter() {
         if (document.getElementById('hama-visitor-counter')) return;
+
+        // ژماردنی سەردانەکان لە ناوخۆی بڕاوزەری بەکارهێنەران بە شێوازێکی زۆر خاوێن
+        let visits = localStorage.getItem('hama_server_visits');
+        if (!visits) {
+            visits = 1; // ئەگەر یەکەم جار بوو، لە 1 دەست پێدەکات
+        } else {
+            // ئەگەر لە دانیشتنێکی نوێدا هاتە ژوورەوە یان پەیجەکە گۆڕی، ژمارەکە زیاد دەکات
+            if (!sessionStorage.getItem('hama_visited_session')) {
+                visits = parseInt(visits) + 1;
+                sessionStorage.setItem('hama_visited_session', 'true');
+            }
+        }
+        localStorage.setItem('hama_server_visits', visits);
 
         const counterBox = document.createElement('div');
         counterBox.id = 'hama-visitor-counter';
@@ -11,10 +23,10 @@
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(16, 16, 16, 0.9);
+            background: rgba(16, 16, 16, 0.95);
             border: 1px solid rgba(255, 215, 0, 0.4);
             color: #ffd700;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 700;
@@ -25,19 +37,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             direction: rtl;
         `;
-        counterBox.innerHTML = 'کۆی سەردانی کەرانی سێرڤەرەکەمان😍: <span id="visitor-count-num">⏳</span>';
+        counterBox.innerHTML = `کۆی سەردانی کەرانی سێرڤەرەکەمان😍: <span style="color: #fff; margin-right: 5px;">${visits}</span>`;
         document.body.appendChild(counterBox);
-
-        // بەستنەوە بە سێرڤەری پاشبنەما بۆ ژماردنی ڕاستەقینە (بێ فەیک)
-        fetch('https://api.countapi.xyz/hit/hamavip-pixel-visitors/visits')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('visitor-count-num').innerText = data.value;
-            })
-            .catch(error => {
-                // ئەگەر کێشەی هێڵ هەبوو، سفر پیشان دەدات تاوەکو زانیارییەکە دەگاتەوە
-                document.getElementById('visitor-count-num').innerText = "0";
-            });
     }
 
     if (document.readyState === 'loading') {
