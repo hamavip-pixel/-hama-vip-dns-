@@ -1,91 +1,46 @@
-/**
- * Hx-Speech Portal - Secure 50-Key Database System
- * Author: MATiX
- */
+window.HxServerKey = {
+    // 100 کلیلی تایبەت بۆ سێرڤەری HAMA⚡️VIP
+    keys: {
+        "HAMA-VIP-001": true, "HAMA-VIP-002": true, "HAMA-VIP-003": true, "HAMA-VIP-004": true, "HAMA-VIP-005": true,
+        "HAMA-VIP-006": true, "HAMA-VIP-007": true, "HAMA-VIP-008": true, "HAMA-VIP-009": true, "HAMA-VIP-010": true,
+        "HAMA-VIP-011": true, "HAMA-VIP-012": true, "HAMA-VIP-013": true, "HAMA-VIP-014": true, "HAMA-VIP-015": true,
+        "HAMA-VIP-016": true, "HAMA-VIP-017": true, "HAMA-VIP-018": true, "HAMA-VIP-019": true, "HAMA-VIP-020": true,
+        "HAMA-VIP-021": true, "HAMA-VIP-022": true, "HAMA-VIP-023": true, "HAMA-VIP-024": true, "HAMA-VIP-025": true,
+        "HAMA-VIP-026": true, "HAMA-VIP-027": true, "HAMA-VIP-028": true, "HAMA-VIP-029": true, "HAMA-VIP-030": true,
+        "HAMA-VIP-031": true, "HAMA-VIP-032": true, "HAMA-VIP-033": true, "HAMA-VIP-034": true, "HAMA-VIP-035": true,
+        "HAMA-VIP-036": true, "HAMA-VIP-037": true, "HAMA-VIP-038": true, "HAMA-VIP-039": true, "HAMA-VIP-040": true,
+        "HAMA-VIP-041": true, "HAMA-VIP-042": true, "HAMA-VIP-043": true, "HAMA-VIP-044": true, "HAMA-VIP-045": true,
+        "HAMA-VIP-046": true, "HAMA-VIP-047": true, "HAMA-VIP-048": true, "HAMA-VIP-049": true, "HAMA-VIP-050": true,
+        "HAMA-VIP-051": true, "HAMA-VIP-052": true, "HAMA-VIP-053": true, "HAMA-VIP-054": true, "HAMA-VIP-055": true,
+        "HAMA-VIP-056": true, "HAMA-VIP-057": true, "HAMA-VIP-058": true, "HAMA-VIP-059": true, "HAMA-VIP-060": true,
+        "HAMA-VIP-061": true, "HAMA-VIP-062": true, "HAMA-VIP-063": true, "HAMA-VIP-064": true, "HAMA-VIP-065": true,
+        "HAMA-VIP-066": true, "HAMA-VIP-067": true, "HAMA-VIP-068": true, "HAMA-VIP-069": true, "HAMA-VIP-070": true,
+        "HAMA-VIP-071": true, "HAMA-VIP-072": true, "HAMA-VIP-073": true, "HAMA-VIP-074": true, "HAMA-VIP-075": true,
+        "HAMA-VIP-076": true, "HAMA-VIP-077": true, "HAMA-VIP-078": true, "HAMA-VIP-079": true, "HAMA-VIP-080": true,
+        "HAMA-VIP-081": true, "HAMA-VIP-082": true, "HAMA-VIP-083": true, "HAMA-VIP-084": true, "HAMA-VIP-085": true,
+        "HAMA-VIP-086": true, "HAMA-VIP-087": true, "HAMA-VIP-088": true, "HAMA-VIP-089": true, "HAMA-VIP-090": true,
+        "HAMA-VIP-091": true, "HAMA-VIP-092": true, "HAMA-VIP-093": true, "HAMA-VIP-094": true, "HAMA-VIP-095": true,
+        "HAMA-VIP-096": true, "HAMA-VIP-097": true, "HAMA-VIP-098": true, "HAMA-VIP-099": true, "HAMA-VIP-100": true,
+        "HX-SPEECH-GENESIS": true,
+        "MATRIX-PRO-2026": true
+    },
 
-(function () {
-    'use strict';
+    verifyKey: function(keyInput) {
+        keyInput = keyInput.trim();
 
-    // ٥٠ کلیلی سێرڤەر (هەر یەکێکیان تەنها بۆ یەک کەس کار دەکات)
-    const SERVER_KEYS = {
-        "HX-PRO-JIN9X": { used: false, maxLimit: "5GB" },
-        "HAMA-VIP-2026-X1": { used: false, maxLimit: "5GB" },
-        "MATRIX-KEY-777": { used: false, maxLimit: "5GB" },
-        "HX-SPEECH-SECURE-99": { used: false, maxLimit: "5GB" },
-        "VIP-MASTER-KEY-01": { used: false, maxLimit: "5GB" },
-        "SECURE-ACCESS-88X": { used: false, maxLimit: "5GB" },
-        "HX-PRO-ULTRA-55": { used: false, maxLimit: "5GB" },
-        "HAMA-VIP-ACCESS-9": { used: false, maxLimit: "5GB" },
-        "DEV-MATRIX-KEY-404": { used: false, maxLimit: "5GB" },
-        "HX-SPEECH-VIP-PRO": { used: false, maxLimit: "5GB" },
-        "PRO-KEY-ALPHA-11": { used: false, maxLimit: "5GB" },
-        "PRO-KEY-BETA-22": { used: false, maxLimit: "5GB" },
-        "PRO-KEY-GAMMA-33": { used: false, maxLimit: "5GB" },
-        "PRO-KEY-DELTA-44": { used: false, maxLimit: "5GB" },
-        "PRO-KEY-OMEGA-55": { used: false, maxLimit: "5GB" },
-        "VIP-USER-XOR-01": { used: false, maxLimit: "5GB" },
-        "VIP-USER-XOR-02": { used: false, maxLimit: "5GB" },
-        "VIP-USER-XOR-03": { used: false, maxLimit: "5GB" },
-        "VIP-USER-XOR-04": { used: false, maxLimit: "5GB" },
-        "VIP-USER-XOR-05": { used: false, maxLimit: "5GB" },
-        "HX-ELITE-KEY-100": { used: false, maxLimit: "5GB" },
-        "HX-ELITE-KEY-200": { used: false, maxLimit: "5GB" },
-        "HX-ELITE-KEY-300": { used: false, maxLimit: "5GB" },
-        "HX-ELITE-KEY-400": { used: false, maxLimit: "5GB" },
-        "HX-ELITE-KEY-500": { used: false, maxLimit: "5GB" },
-        "MATRIX-PRIME-1": { used: false, maxLimit: "5GB" },
-        "MATRIX-PRIME-2": { used: false, maxLimit: "5GB" },
-        "MATRIX-PRIME-3": { used: false, maxLimit: "5GB" },
-        "MATRIX-PRIME-4": { used: false, maxLimit: "5GB" },
-        "MATRIX-PRIME-5": { used: false, maxLimit: "5GB" },
-        "SECURE-PASS-901": { used: false, maxLimit: "5GB" },
-        "SECURE-PASS-902": { used: false, maxLimit: "5GB" },
-        "SECURE-PASS-903": { used: false, maxLimit: "5GB" },
-        "SECURE-PASS-904": { used: false, maxLimit: "5GB" },
-        "SECURE-PASS-905": { used: false, maxLimit: "5GB" },
-        "HAMA-GOLD-KEY-1": { used: false, maxLimit: "5GB" },
-        "HAMA-GOLD-KEY-2": { used: false, maxLimit: "5GB" },
-        "HAMA-GOLD-KEY-3": { used: false, maxLimit: "5GB" },
-        "HAMA-GOLD-KEY-4": { used: false, maxLimit: "5GB" },
-        "HAMA-GOLD-KEY-5": { used: false, maxLimit: "5GB" },
-        "ULTRA-VIP-PASS-1": { used: false, maxLimit: "5GB" },
-        "ULTRA-VIP-PASS-2": { used: false, maxLimit: "5GB" },
-        "ULTRA-VIP-PASS-3": { used: false, maxLimit: "5GB" },
-        "ULTRA-VIP-PASS-4": { used: false, maxLimit: "5GB" },
-        "ULTRA-VIP-PASS-5": { used: false, maxLimit: "5GB" },
-        "HX-SPEECH-PRO-MAX": { used: false, maxLimit: "5GB" },
-        "HX-SPEECH-ULTIMATE": { used: false, maxLimit: "5GB" },
-        "HX-SPEECH-EXCLUSIVE": { used: false, maxLimit: "5GB" },
-        "HX-SPEECH-INFINITY": { used: false, maxLimit: "5GB" },
-        "HX-SPEECH-GENESIS": { used: false, maxLimit: "5GB" }
-    };
-
-    window.HxServerKey = {
-        verifyKey: function(keyInput) {
-            if (!keyInput) return { success: false, msg: "تکایە کلیل بنووسە!" };
-            
-            let cleanKey = keyInput.trim();
-
-            let savedActiveKey = localStorage.getItem("hx_active_pro_key");
-            if (savedActiveKey === cleanKey) {
-                return { success: true, msg: "✓ ئەم کلیلە پێشتر لەسەر ئەم ئامێرە چالاک کراوە!" };
-            }
-
-            if (SERVER_KEYS.hasOwnProperty(cleanKey)) {
-                if (localStorage.getItem("key_used_" + cleanKey) === "true") {
-                    return { success: false, msg: "✕ ببورە، ئەم کلیلە پێشتر لەلایەن کەسێکی ترەوە بەکارهاتووە!" };
-                }
-
-                localStorage.setItem("key_used_" + cleanKey, "true");
-                localStorage.setItem("hx_active_pro_key", cleanKey);
-                return { success: true, msg: "✓ پیرۆزە! بەشی پرۆ (PRO) بە سەرکەوتوویی بۆت کرایەوە." };
-            }
-
-            return { success: false, msg: "✕ کلیلەکە هەڵەیە یان بوونی نییە!" };
-        },
-
-        isProActive: function() {
-            return localStorage.getItem("hx_active_pro_key") !== null;
+        if (!this.keys[keyInput]) {
+            return { success: false, message: "کلیلەکە هەڵەیە!" };
         }
-    };
-})();
+
+        let usedKeys = JSON.parse(localStorage.getItem('hama_used_keys') || '{}');
+        
+        if (usedKeys[keyInput]) {
+            return { success: false, message: "⚠️ ئەم کلیلە پێشتر بەکارهاتووە و بەسەرچووە! تکایە کلیلی نوێ داوا بکە." };
+        }
+
+        usedKeys[keyInput] = true;
+        localStorage.setItem('hama_used_keys', JSON.stringify(usedKeys));
+
+        return { success: true, message: "کلیلەکە ڕاستە و بە سەرکەوتوویی چالاک بوو!" };
+    }
+};
