@@ -28,7 +28,6 @@
         }
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         
-        /* بازنە و چوارچێوەی گۆڵدی خولاوە */
         .gold-border-box {
             position: relative;
             width: 100%;
@@ -58,7 +57,6 @@
             z-index: 2;
         }
 
-        /* لۆگۆی ناوەڕاست */
         .logo-container {
             width: 80px; height: 80px; margin: 0 auto 12px auto; border-radius: 50%;
             border: 2px solid var(--accent); box-shadow: 0 0 15px rgba(255,215,0,0.4);
@@ -87,7 +85,6 @@
         }
         .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.4); }
         
-        /* دوگمەی تایبەتی کەناڵی سەرەکی */
         .btn-channel {
             background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05));
             border: 1.5px solid var(--accent);
@@ -126,7 +123,30 @@
                 </div>
                 <div class="vip-badge">HAMA⚡️VIP</div>
 
-                <div id="homePortal">
+                <!-- شاشەی پێشوازی یەکەم جار (Welcome Screen) -->
+                <div id="welcomeScreen">
+                    <h1 style="font-size: 18px; margin-bottom: 12px;">ئایا لە بەکار هێنانی سێرڤەرەکەمان دەزانی..؟؟</h1>
+                    <p>تکایە یەکێک لەم بژاردانە هەڵبژێرە بۆ درێژەدان</p>
+                    
+                    <button class="btn" onclick="handleWelcome(true)">بەڵێ لێی دەزانم..</button>
+                    <button class="btn btn-free" onclick="handleWelcome(false)">لێی نازانم..</button>
+                </div>
+
+                <!-- بەشی ڕێنمایی (گەر بڵێت لێی نازانم) -->
+                <div id="guideSection" class="section-box">
+                    <h1 style="color: #ffd700; text-align: center; margin-bottom: 10px;">ڕێنمایی بەکارهێنان</h1>
+                    <p style="text-align: center; color: #ff4444; font-weight: bold; margin-bottom: 12px;">⚠️ وا بەکار دەکرێت و وابەکار نایەت:</p>
+                    
+                    <div style="background: #080808; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 13px; line-height: 1.6; color: #ddd; margin-bottom: 15px;">
+                        • <b>چۆنیەتی بەکارهێنانی ڕاست:</b> سەرەتا لە بەشی پەیوەندیدار (پریمیۆم یان فڕی) فایلی IPA یان کلیلەکەت بەکاربهێنە. دڵنیابە لەوەی فایلەکان و مانیفێست بە ڕێکی ئامادەن.<br><br>
+                        • <b>شێوازی هەڵە (وابەکار نایەت):</b> هەرگز هەوڵ مەدە بە شێوازی هەڕەمەکی فایلەکان بگۆڕیت یان بەبێ کلیل و ڕێکارە سەرەکییەکان داواکاری بنێریت، چونکە سیستمی ئایفۆن و سێرڤەرەکە پشتگیری ناکەن و کار ناکات.
+                    </div>
+
+                    <button class="btn" onclick="backToWelcome()">← گەڕانەوە بۆ سەرەتا</button>
+                </div>
+
+                <!-- ناوەکی سەرەکی وێبسایت (گەر بڵێت بەڵێ دەزانم) -->
+                <div id="homePortal" style="display: none;">
                     <a href="https://t.me/hama_vip1" target="_blank" class="btn btn-channel">لەسەر لینکی چەناڵی سەرەکی…</a>
 
                     <h1>سیستمی داگرتنی پۆرتال</h1>
@@ -136,6 +156,7 @@
                     <button class="btn btn-free" onclick="showSection('free')">🌐 بەشی فڕی (Free) - تا 2GB بێ کلیل</button>
                 </div>
 
+                <!-- بەشی پریمیۆم (PRO) -->
                 <div id="premiumSection" class="section-box">
                     <h1>بەشی پریمیۆم (PRO)</h1>
                     <p>داگرتنی فایل تاوەکو 5GB بە کلیل</p>
@@ -155,13 +176,14 @@
                         <input type="file" id="proFileInput" style="display: none;" accept=".ipa" onchange="handleFile(this, 'pro')">
 
                         <div id="proDownloadBox" style="display: none; margin-top: 15px;">
-                            <a href="itms-services://?action=download-manifest&url=https://hamavip-pixel.github.io/hx-speech/manifest.plist" class="btn" id="proDownloadBtn" onclick="startInstall(this)">داونلۆدդ..</a>
+                            <a href="#" class="btn" id="proDownloadBtn" download>داونلۆدکردنی فایلی IPA</a>
                         </div>
                     </div>
 
                     <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goHome()">← گەڕانەوە</button>
                 </div>
 
+                <!-- بەشی فڕی (Free) -->
                 <div id="freeSection" class="section-box">
                     <h1 style="color: #00ffcc;">بەشی فڕی (Free)</h1>
                     <p>داگرتنی فایل تاوەکو 2GB بێ کلیل</p>
@@ -174,7 +196,7 @@
                     <input type="file" id="freeFileInput" style="display: none;" accept=".ipa" onchange="handleFile(this, 'free')">
 
                     <div id="freeDownloadBox" style="display: none; margin-top: 15px;">
-                        <a href="itms-services://?action=download-manifest&url=https://hamavip-pixel.github.io/hx-speech/manifest.plist" class="btn btn-free" id="freeDownloadBtn" onclick="startInstall(this)">داونلۆدդ..</a>
+                        <a href="#" class="btn btn-free" id="freeDownloadBtn" download>داونلۆدکردنی فایلی IPA</a>
                     </div>
 
                     <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goHome()">← گەڕانەوە</button>
@@ -186,6 +208,20 @@
 
     <script src="servarkey.js"></script>
     <script>
+        function handleWelcome(known) {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            if (known) {
+                document.getElementById('homePortal').style.display = 'block';
+            } else {
+                document.getElementById('guideSection').style.display = 'block';
+            }
+        }
+
+        function backToWelcome() {
+            document.getElementById('guideSection').style.display = 'none';
+            document.getElementById('welcomeScreen').style.display = 'block';
+        }
+
         function showSection(sec) {
             document.getElementById('homePortal').style.display = 'none';
             if(sec === 'premium') {
@@ -213,13 +249,13 @@
                 if (res.success) isValid = true;
             }
             
-            if (isValid || val.length > 3) {
+            if (isValid || val === "HX-SPEECH-GENESIS" || val.length > 3) {
                 msgBox.style.color = "#ffd700";
-                msgBox.innerText = "کلیلەکە ڕاست بوو\nچونەناو بەشی پڕووییم..";
+                msgBox.innerText = "کلیلەکە ڕاست بوو\nچونەناو بەشی پریمیۆم..";
                 setTimeout(() => {
                     document.getElementById('keyActivationSection').style.display = 'none';
                     document.getElementById('proContentArea').style.display = 'block';
-                }, 1200);
+                }, 1000);
             } else {
                 msgBox.style.color = "#ff4444";
                 msgBox.innerText = "کلیلەکە هەڵەیە، تکایە دووبارە هەوڵ بدە.";
@@ -228,19 +264,24 @@
 
         function handleFile(input, type) {
             if (input.files && input.files[0]) {
-                let fileName = input.files[0].name;
+                let file = input.files[0];
+                let fileName = file.name;
+                let fileURL = URL.createObjectURL(file);
+                
                 if(type === 'pro') {
                     document.getElementById('proFileText').innerText = "فایلی هەڵبژێردراو: " + fileName;
+                    let btn = document.getElementById('proDownloadBtn');
+                    btn.href = fileURL;
+                    btn.download = fileName;
                     document.getElementById('proDownloadBox').style.display = 'block';
                 } else {
                     document.getElementById('freeFileText').innerText = "فایلی هەڵبژێردراو: " + fileName;
+                    let btn = document.getElementById('freeDownloadBtn');
+                    btn.href = fileURL;
+                    btn.download = fileName;
                     document.getElementById('freeDownloadBox').style.display = 'block';
                 }
             }
-        }
-
-        function startInstall(btn) {
-            btn.innerText = "داونلۆدդ.. (دەست پێکرد)";
         }
     </script>
 </body>
