@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hx-Speech | Ultimate Portal</title>
-    <link rel="icon" type="image/jpeg" href="IMG_0045.jpeg">
-    <link rel="apple-touch-icon" href="IMG_0045.jpeg">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>HAMA⚡️VIP | Ultimate Portal</title>
     <style>
         :root {
             --bg-color: #040404;
             --card-bg: #101010;
-            --border-color: rgba(0, 255, 204, 0.15);
-            --accent: #00ffcc;
-            --accent-glow: rgba(0, 255, 204, 0.25);
+            --border-color: rgba(255, 215, 0, 0.3);
+            --accent: #ffd700;
             --text-main: #ffffff;
             --text-sub: #888888;
         }
@@ -27,129 +22,168 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             padding: 20px;
         }
-        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .card {
+        .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; }
+        
+        /* خولانەوەی ڕەنگی گۆڵدی بە دەوری کارتەکەدا */
+        .gold-border-box {
+            position: relative;
+            width: 100%;
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 30px 20px;
+            padding: 3px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+        .gold-border-box::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, var(--accent));
+            animation: rotateGold 4s linear infinite;
+        }
+        @keyframes rotateGold {
+            100% { transform: rotate(360deg); }
+        }
+        .card-inner {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 24px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 2;
         }
-        .logo-container {
-            width: 90px; height: 90px; margin: 0 auto 15px auto; border-radius: 50%;
-            border: 2px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow);
-            overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center;
+
+        .vip-badge {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+            letter-spacing: 1px;
         }
-        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
-        h1 { font-size: 22px; margin-bottom: 8px; color: var(--text-main); }
-        p { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; }
-        .btn {
-            display: block; width: 100%; padding: 16px; border-radius: 14px; background: #181818;
-            border: 1px solid var(--border-color); color: var(--text-main); font-size: 15px; font-weight: 600;
-            margin-bottom: 12px; cursor: pointer; transition: 0.3s; text-align: center;
-        }
-        .btn:hover { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
-        .btn-pro { background: linear-gradient(135deg, rgba(0,255,204,0.15), rgba(0,255,204,0.02)); border-color: var(--accent); color: var(--accent); }
-        .section-box { display: none; margin-top: 15px; text-align: right; }
+        h1 { font-size: 20px; margin-bottom: 5px; color: var(--accent); }
+        p { font-size: 13px; color: var(--text-sub); margin-bottom: 15px; }
+        
         .input-field {
             width: 100%; padding: 14px; background: #080808; border: 1px solid var(--border-color);
-            border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; text-align: center; margin-bottom: 10px;
+            border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; text-align: center; margin-bottom: 12px;
         }
-        .file-box {
-            background: #080808; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; margin-top: 10px;
-            display: flex; align-items: center; justify-content: space-between;
+        .btn {
+            width: 100%; padding: 14px; border-radius: 12px; background: rgba(255,215,0,0.1);
+            border: 1px solid var(--accent); color: var(--accent); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; display: block; text-align: center;
         }
+        .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.4); }
+        
+        .section-box { display: none; margin-top: 15px; text-align: right; }
+        
+        /* شێوازی بۆکسەکەی دادەنێیت (Drop Zone) */
+        .drop-zone {
+            border: 2px dashed rgba(255,215,0,0.4);
+            border-radius: 16px;
+            padding: 30px 15px;
+            text-align: center;
+            background: #080808;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .drop-zone:hover { border-color: var(--accent); }
+        .upload-icon { font-size: 32px; color: var(--accent); margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card" id="mainCard">
-            <div class="logo-container">
-                <img src="IMG_0045.jpeg" alt="Hx-Speech Logo">
-            </div>
-            <h1>Hx-Speech Portal</h1>
-            <p>سیستمی داگرتنی فایل و بەشی پریمیۆم</p>
-            
-            <button class="btn btn-pro" onclick="openSection('premium')">⭐ بەشی پریمیۆم (PRO) - تا 5GB</button>
-            <button class="btn" onclick="openSection('free')">🌐 بەشی فڕی (Free) - تا 2GB</button>
-        </div>
+        <div class="gold-border-box">
+            <div class="card-inner">
+                <div class="vip-badge">HAMA⚡️VIP</div>
 
-        <div class="card section-box" id="freeSection">
-            <h3 style="color: var(--accent); text-align: center; margin-bottom: 10px;">بەشی فڕی (Free)</h3>
-            <p style="text-align: center;">داگرتنی ڕاستەوخۆی فایلی IPA بێ کلیل (تاوەکو 2GB)</p>
-            <div class="file-box">
-                <div>
-                    <h4 style="font-size: 15px; color: #fff;">فایلی IPA ی فڕی</h4>
-                    <span style="font-size: 12px; color: var(--text-sub);">بێ کلیل • تاوەکو 2GB</span>
+                <div id="keyActivationSection">
+                    <h1>بەشی پریمیۆم (PRO)</h1>
+                    <p>داگرتنی فایل تاوەکو 5GB بە کلیل</p>
+                    <input type="text" id="proKeyInput" class="input-field" placeholder="کلیلەکەت لێرە بنووسە...">
+                    <button class="btn" onclick="activateProKey()">چالاککردنی کلیل</button>
+                    <p id="msgResult" style="margin-top: 12px; font-size: 13px; text-align: center;"></p>
                 </div>
-                <a href="free-app.ipa" class="btn" style="width: auto; padding: 10px 16px; margin:0;" download>داگرتن</a>
-            </div>
-            <button class="btn" style="margin-top: 15px; background: #222;" onclick="goHome()">← گەڕانەوە</button>
-        </div>
 
-        <div class="card section-box" id="premiumSection">
-            <h3 style="color: var(--accent); text-align: center; margin-bottom: 10px;">بەشی پریمیۆم (PRO)</h3>
-            <p style="text-align: center;">داگرتنی فایل تاوەکو 5GB بە کلیل</p>
-            
-            <div id="keyBox">
-                <input type="text" id="proKeyInput" class="input-field" placeholder="کلیلەکەت لێرە بنووسە...">
-                <button class="btn btn-pro" style="margin:0;" onclick="activateKey()">چالاککردنی کلیل</button>
-                <p id="msgResult" style="margin-top: 10px; font-size: 13px; text-align: center;"></p>
-            </div>
-
-            <div id="downloadBox" style="display: none; margin-top: 15px;">
-                <p style="color: var(--accent); text-align: center; margin-bottom: 10px;">✓ بەشی پرۆ چالاکە</p>
-                <div class="file-box">
-                    <div>
-                        <h4 style="font-size: 15px; color: #fff;">فایلی IPA (تایبەت)</h4>
-                        <span style="font-size: 12px; color: var(--text-sub);">بە کلیل • تاوەکو 5GB</span>
+                <div id="proContentSection" class="section-box">
+                    <h1>بەشی پریمیۆم (PRO)</h1>
+                    <p>فایلی IPA هەڵبژێرە بۆ داگرتن بۆ سەر Home Screen</p>
+                    
+                    <div class="drop-zone" onclick="document.getElementById('hiddenFileInput').click();">
+                        <div class="upload-icon">⬆</div>
+                        <p style="color: #fff; margin-bottom: 5px; font-size: 14px;">Drop your .ipa file here</p>
+                        <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
                     </div>
-                    <a href="app.ipa" class="btn" style="width: auto; padding: 10px 16px; margin:0;" download>داگرتن</a>
+                    
+                    <input type="file" id="hiddenFileInput" style="display: none;" accept=".ipa,image/*,video/*" onchange="handleFileSelected(this)">
+
+                    <div id="downloadActionBox" style="display: none; margin-top: 15px;">
+                        <button id="downloadBtn" class="btn" onclick="startDownload()">داونلۆدդ..</button>
+                    </div>
+
+                    <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goBackToKey()">← گەڕانەوە</button>
                 </div>
+
             </div>
-            <button class="btn" style="margin-top: 15px; background: #222;" onclick="goHome()">← گەڕانەوە</button>
         </div>
     </div>
 
     <script src="servarkey.js"></script>
     <script>
-        function openSection(sec) {
-            document.getElementById('mainCard').style.display = 'none';
-            if(sec === 'free') {
-                document.getElementById('freeSection').style.display = 'block';
-            } else if(sec === 'premium') {
-                document.getElementById('premiumSection').style.display = 'block';
-                if(window.HxServerKey && window.HxServerKey.isProActive()) {
-                    document.getElementById('keyBox').style.display = 'none';
-                    document.getElementById('downloadBox').style.display = 'block';
-                }
+        // پشکنینی پێشوەختە ئەگەر کلیل پێشتر چالاک بووبێت
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.HxServerKey && window.HxServerKey.isProActive()) {
+                document.getElementById('keyActivationSection').style.display = 'none';
+                document.getElementById('proContentSection').style.display = 'block';
             }
-        }
+        });
 
-        function goHome() {
-            document.getElementById('freeSection').style.display = 'none';
-            document.getElementById('premiumSection').style.display = 'none';
-            document.getElementById('mainCard').style.display = 'block';
-        }
-
-        function activateKey() {
+        function activateProKey() {
             let val = document.getElementById('proKeyInput').value;
             let res = window.HxServerKey.verifyKey(val);
             let msgBox = document.getElementById('msgResult');
-            msgBox.innerText = res.msg;
+            
             if (res.success) {
-                msgBox.style.color = "#00ffcc";
+                msgBox.style.color = "#ffd700";
+                msgBox.innerText = "کلیلەکە ڕاست بوو\nچونەناو بەشی پڕووییم..";
                 setTimeout(() => {
-                    document.getElementById('keyBox').style.display = 'none';
-                    document.getElementById('downloadBox').style.display = 'block';
-                }, 1000);
+                    document.getElementById('keyActivationSection').style.display = 'none';
+                    document.getElementById('proContentSection').style.display = 'block';
+                }, 1200);
             } else {
                 msgBox.style.color = "#ff4444";
+                msgBox.innerText = res.msg;
             }
+        }
+
+        function handleFileSelected(input) {
+            if (input.files && input.files[0]) {
+                let fileName = input.files[0].name;
+                document.getElementById('downloadActionBox').style.display = 'block';
+                document.querySelector('.drop-zone p').innerText = "فایل هەڵبژێردرا: " + fileName;
+            }
+        }
+
+        function startDownload() {
+            let btn = document.getElementById('downloadBtn');
+            btn.innerText = "داونلۆدդ..";
+            
+            // لێرەدا لینکەکەی فایلی IPA دەنوسیت یان ڕاستەوخۆ داگرتن دەست پێدەکات
+            let link = document.createElement('a');
+            link.href = "app.ipa"; // ناوی فایلی IPAت لێرە دەبێت
+            link.download = "app.ipa";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function goBackToKey() {
+            document.getElementById('proContentSection').style.display = 'none';
+            document.getElementById('keyActivationSection').style.display = 'block';
         }
     </script>
 </body>
