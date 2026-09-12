@@ -96,6 +96,9 @@
 
         .btn-free { background: rgba(0,255,204,0.1); border-color: #00ffcc; color: #00ffcc; }
         .btn-free:hover { background: #00ffcc; color: #000; box-shadow: 0 0 15px rgba(0,255,204,0.4); }
+
+        .btn-status { background: rgba(255, 140, 0, 0.1); border-color: #ff8c00; color: #ffbc42; }
+        .btn-status:hover { background: #ff8c00; color: #000; box-shadow: 0 0 15px rgba(255,140,0,0.4); }
         
         .section-box { display: none; text-align: right; }
         
@@ -150,8 +153,9 @@
                     <h1 style="font-size: 18px; margin-bottom: 12px;">ئایا لە بەکار هێنانی سێرڤەرەکەمان دەزانی..؟؟</h1>
                     <p>تکایە یەکێک لەم بژاردانە هەڵبژێرە بۆ درێژەدان</p>
                     
-                    <button class="btn" onclick="handleWelcome(true)">بەڵێ لێی دەزانم..</button>
-                    <button class="btn btn-free" onclick="handleWelcome(false)">لێی نازانم..</button>
+                    <button class="btn" onclick="handleWelcome('known')">بەڵێ لێی دەزانم..</button>
+                    <button class="btn btn-free" onclick="handleWelcome('unknown')">لێی نازانم..</button>
+                    <button class="btn btn-status" onclick="handleWelcome('status')">لەو کاتەدا لەم سێرڤەرەدا چی بەر دەستە..؟؟</button>
                 </div>
 
                 <!-- بەشی ڕێنمایی (گەر بڵێت لێی نازانم) -->
@@ -162,6 +166,19 @@
                     <div style="background: #080808; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 13px; line-height: 1.6; color: #ddd; margin-bottom: 15px;">
                         • <b>چۆنیەتی بەکارهێنانی ڕاست:</b> لە بەشی پریمیۆم بە کلیلە تایبەتەکان دەتوانیت ڕاستەوخۆ هاکی پۆبجی دابەزێنیتە سەر شاشەی سەرەکیی مۆبایلەکەت.<br><br>
                         • <b>شێوازی هەڵە (وابەکار نایەت):</b> فایلە قورسەکان (وەک پۆبجی لە 2GB زیاتر) لە بەشی فڕی کار ناکەن و دەبێت تەنها لە بەشی پریمیۆم بەکاربهێنرێن.
+                    </div>
+
+                    <button class="btn" onclick="backToWelcome()">← گەڕانەوە بۆ سەرەتا</button>
+                </div>
+
+                <!-- بەشی زانیاری دۆخی ئێستای سێرڤەر (لە کاتی ئێستادا چی بەردەستە) -->
+                <div id="statusSection" class="section-box" style="text-align: center;">
+                    <h1 style="color: #ffbc42; margin-bottom: 10px;">دۆخی ئێستای سێرڤەرەکەمان ⚡️</h1>
+                    <p style="color: #bbb; margin-bottom: 15px;">زانیاری خێرا لەسەر بەردەستبوونی خزمەتگوزارییەکان</p>
+                    
+                    <div style="background: #080808; padding: 15px; border-radius: 14px; border: 1.5px solid #ffbc42; font-size: 13.5px; line-height: 1.8; color: #fff; margin-bottom: 20px; text-align: right;">
+                        🔥 <b>هەواڵی خۆش بۆ ماتریکس و هاوڕێیان:</b><br>
+                        لە ئێستادا لەم سێرڤەرەدا بە شێوەیەکی ڕاستەوخۆ و خێرا، <span style="color: #ffd700; font-weight: bold;">داگرتنی ڕاستەوخۆی هاکی پۆبجی (تەنها لە بەشی PRO)</span> بەردەستە و دەتوانیت دەستبەجێ خەریکی داگرتنی بیت!
                     </div>
 
                     <button class="btn" onclick="backToWelcome()">← گەڕانەوە بۆ سەرەتا</button>
@@ -193,13 +210,11 @@
                     <div id="proContentArea" style="display: none; text-align: center;">
                         <p style="color: #ffd700; font-weight: bold; margin-bottom: 12px;">🔥 فایلی تایبەتی هاکی پۆبجی ئامادەیە:</p>
                         
-                        <!-- دوگمەی داونلۆدی هاکی پۆبجی کە بەستراوەتەوە بە مانیفێستەوە -->
                         <a href="itms-services://?action=download-manifest&url=https://hamavip-pixel.github.io/hx-speech/manifest.plist" class="btn" style="background: linear-gradient(135deg, #ffd700, #ff8c00); color: #000; font-weight: 800; padding: 16px;">
                             HAMA⚡️VIP.HACK.PUBG
                         </a>
                         <span style="font-size: 11px; color: var(--text-sub); display: block; margin-top: 5px;">کرتە بکە بۆ داگرتنی ڕاستەوخۆ سەر Home Screen</span>
 
-                        <!-- فایلی تاقیکاری تریش ئەگەرت هەوێت دابنێیت -->
                         <div class="drop-zone" style="margin-top: 20px;" onclick="document.getElementById('proFileInput').click();">
                             <div class="upload-icon">⬆</div>
                             <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="proFileText">فایلی تری IPA هەڵبژێرە (تاوەکو 5GB)</p>
@@ -262,17 +277,20 @@
             document.getElementById('visitor-count-num').innerText = visits;
         })();
 
-        function handleWelcome(known) {
+        function handleWelcome(type) {
             document.getElementById('welcomeScreen').style.display = 'none';
-            if (known) {
+            if (type === 'known') {
                 document.getElementById('homePortal').style.display = 'block';
-            } else {
+            } else if (type === 'unknown') {
                 document.getElementById('guideSection').style.display = 'block';
+            } else if (type === 'status') {
+                document.getElementById('statusSection').style.display = 'block';
             }
         }
 
         function backToWelcome() {
             document.getElementById('guideSection').style.display = 'none';
+            document.getElementById('statusSection').style.display = 'none';
             document.getElementById('welcomeScreen').style.display = 'block';
         }
 
