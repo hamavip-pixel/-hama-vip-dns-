@@ -28,7 +28,7 @@
         }
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         
-        /* بازنە و چوارچێوەی گۆڵدی خولاوە کە دەوریدا دەخولێتەوە */
+        /* بازنە و چوارچێوەی گۆڵدی خولاوە */
         .gold-border-box {
             position: relative;
             width: 100%;
@@ -58,7 +58,7 @@
             z-index: 2;
         }
 
-        /* لۆگۆ و نوسینی گۆڵدی خولاوە */
+        /* لۆگۆی ناوەڕاست */
         .logo-container {
             width: 80px; height: 80px; margin: 0 auto 12px auto; border-radius: 50%;
             border: 2px solid var(--accent); box-shadow: 0 0 15px rgba(255,215,0,0.4);
@@ -111,13 +111,11 @@
     <div class="container">
         <div class="gold-border-box">
             <div class="card-inner">
-                <!-- لۆگۆ -->
                 <div class="logo-container">
                     <img src="IMG_0045.jpeg" alt="HAMA Logo">
                 </div>
                 <div class="vip-badge">HAMA⚡️VIP</div>
 
-                <!-- سەرەتا: دوو دوگمەکە (پریمیۆم و فڕی) -->
                 <div id="homePortal">
                     <h1>سیستمی داگرتنی پۆرتال</h1>
                     <p>بەشی پێویست هەڵبژێرە بۆ درێژەدان</p>
@@ -126,7 +124,6 @@
                     <button class="btn btn-free" onclick="showSection('free')">🌐 بەشی فڕی (Free) - تا 2GB بێ کلیل</button>
                 </div>
 
-                <!-- بەشی پریمیۆم -->
                 <div id="premiumSection" class="section-box">
                     <h1>بەشی پریمیۆم (PRO)</h1>
                     <p>داگرتنی فایل تاوەکو 5GB بە کلیل</p>
@@ -140,33 +137,32 @@
                     <div id="proContentArea" style="display: none;">
                         <div class="drop-zone" onclick="document.getElementById('proFileInput').click();">
                             <div class="upload-icon">⬆</div>
-                            <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="proFileText">Drop your .ipa file here (Max 5GB)</p>
+                            <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="proFileText">فایلی IPA هەڵبژێرە (تاوەکو 5GB)</p>
                             <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
                         </div>
-                        <input type="file" id="proFileInput" style="display: none;" onchange="handleFile(this, 'pro')">
+                        <input type="file" id="proFileInput" style="display: none;" accept=".ipa" onchange="handleFile(this, 'pro')">
 
                         <div id="proDownloadBox" style="display: none; margin-top: 15px;">
-                            <button class="btn" id="proDownloadBtn" onclick="startDownload('app.ipa', this)">داونلۆدդ..</button>
+                            <a href="itms-services://?action=download-manifest&url=https://hamavip-pixel.github.io/hx-speech/manifest.plist" class="btn" id="proDownloadBtn" onclick="startInstall(this)">داونلۆدդ..</a>
                         </div>
                     </div>
 
                     <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goHome()">← گەڕانەوە</button>
                 </div>
 
-                <!-- بەشی فڕی -->
                 <div id="freeSection" class="section-box">
                     <h1 style="color: #00ffcc;">بەشی فڕی (Free)</h1>
                     <p>داگرتنی فایل تاوەکو 2GB بێ کلیل</p>
                     
                     <div class="drop-zone drop-zone-free" onclick="document.getElementById('freeFileInput').click();">
                         <div class="upload-icon" style="color: #00ffcc;">⬆</div>
-                        <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="freeFileText">Drop your .ipa file here (Max 2GB)</p>
+                        <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="freeFileText">فایلی IPA هەڵبژێرە (تاوەکو 2GB)</p>
                         <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
                     </div>
-                    <input type="file" id="freeFileInput" style="display: none;" onchange="handleFile(this, 'free')">
+                    <input type="file" id="freeFileInput" style="display: none;" accept=".ipa" onchange="handleFile(this, 'free')">
 
                     <div id="freeDownloadBox" style="display: none; margin-top: 15px;">
-                        <button class="btn btn-free" id="freeDownloadBtn" onclick="startDownload('free-app.ipa', this)">داونلۆدդ..</button>
+                        <a href="itms-services://?action=download-manifest&url=https://hamavip-pixel.github.io/hx-speech/manifest.plist" class="btn btn-free" id="freeDownloadBtn" onclick="startInstall(this)">داونلۆدդ..</a>
                     </div>
 
                     <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goHome()">← گەڕانەوە</button>
@@ -222,23 +218,17 @@
             if (input.files && input.files[0]) {
                 let fileName = input.files[0].name;
                 if(type === 'pro') {
-                    document.getElementById('proFileText').innerText = "فایل هەڵبژێردرا: " + fileName;
+                    document.getElementById('proFileText').innerText = "فایلی هەڵبژێردراو: " + fileName;
                     document.getElementById('proDownloadBox').style.display = 'block';
                 } else {
-                    document.getElementById('freeFileText').innerText = "فایل هەڵبژێردرا: " + fileName;
+                    document.getElementById('freeFileText').innerText = "فایلی هەڵبژێردراو: " + fileName;
                     document.getElementById('freeDownloadBox').style.display = 'block';
                 }
             }
         }
 
-        function startDownload(filename, btnElement) {
-            btnElement.innerText = "داونلۆدդ..";
-            let link = document.createElement('a');
-            link.href = filename;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+        function startInstall(btn) {
+            btn.innerText = "داونلۆدդ.. (دەست پێکرد)";
         }
     </script>
 </body>
