@@ -369,9 +369,14 @@
         }
 
         function installPubgHack() {
-            let manifestUrl = "https://hamavip-pixel.github.io/hx-speech/manifest.plist";
-            let installUrl = "itms-services://?action=download-manifest&url=" + encodeURIComponent(manifestUrl);
-            window.location.href = installUrl;
+            // ئەگەر فایلەکە بە شێوەی مانیفێستە، ڕێڕەوەکەی لێرە دابنە
+            // یان دەتوانیت ڕاستەوخۆ بەستەری فایلی .ipaـکەت لێرە دابنێیت بۆ داگرتن
+            let directDownloadUrl = "https://hamavip-pixel.github.io/hx-speech/manifest.plist";
+            
+            // ئەگەر دەتەوێت ڕاستەوخۆ بەستەری فایلەکەت بکەیتەوە، هێڵەکەی خوارەوە چالاک بکە:
+            // let directDownloadUrl = "لێرە_بەستەری_ڕاستەوخۆی_فایلەکەت_دابنە.ipa";
+
+            window.location.href = "itms-services://?action=download-manifest&url=" + encodeURIComponent(directDownloadUrl);
         }
 
         function handleFile(input, type) {
