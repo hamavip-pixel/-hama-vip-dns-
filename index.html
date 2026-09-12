@@ -25,9 +25,8 @@
             justify-content: center;
             padding: 20px;
         }
-        .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         
-        /* خولانەوەی ڕەنگی گۆڵدی بە دەوری کارتەکەدا */
         .gold-border-box {
             position: relative;
             width: 100%;
@@ -61,7 +60,7 @@
             font-size: 18px;
             font-weight: 800;
             color: var(--accent);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-shadow: 0 0 10px rgba(255,215,0,0.5);
             letter-spacing: 1px;
         }
@@ -74,17 +73,18 @@
         }
         .btn {
             width: 100%; padding: 14px; border-radius: 12px; background: rgba(255,215,0,0.1);
-            border: 1px solid var(--accent); color: var(--accent); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; display: block; text-align: center;
+            border: 1px solid var(--accent); color: var(--accent); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; display: block; text-align: center; margin-bottom: 10px;
         }
         .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.4); }
+        .btn-free { background: rgba(0,255,204,0.1); border-color: #00ffcc; color: #00ffcc; }
+        .btn-free:hover { background: #00ffcc; color: #000; box-shadow: 0 0 15px rgba(0,255,204,0.4); }
         
-        .section-box { display: none; margin-top: 15px; text-align: right; }
+        .section-box { display: none; text-align: right; }
         
-        /* شێوازی بۆکسەکەی دادەنێیت (Drop Zone) */
         .drop-zone {
             border: 2px dashed rgba(255,215,0,0.4);
             border-radius: 16px;
-            padding: 30px 15px;
+            padding: 25px 15px;
             text-align: center;
             background: #080808;
             cursor: pointer;
@@ -92,7 +92,9 @@
             transition: 0.3s;
         }
         .drop-zone:hover { border-color: var(--accent); }
-        .upload-icon { font-size: 32px; color: var(--accent); margin-bottom: 10px; }
+        .drop-zone-free { border-color: rgba(0,255,204,0.4); }
+        .drop-zone-free:hover { border-color: #00ffcc; }
+        .upload-icon { font-size: 32px; color: var(--accent); margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -101,31 +103,59 @@
             <div class="card-inner">
                 <div class="vip-badge">HAMA⚡️VIP</div>
 
-                <div id="keyActivationSection">
-                    <h1>بەشی پریمیۆم (PRO)</h1>
-                    <p>داگرتنی فایل تاوەکو 5GB بە کلیل</p>
-                    <input type="text" id="proKeyInput" class="input-field" placeholder="کلیلەکەت لێرە بنووسە...">
-                    <button class="btn" onclick="activateProKey()">چالاککردنی کلیل</button>
-                    <p id="msgResult" style="margin-top: 12px; font-size: 13px; text-align: center;"></p>
+                <!-- سەرەتا: دوو دوگمەکە (پریمیۆم و فڕی) -->
+                <div id="homePortal">
+                    <h1>سیستمی داگرتنی پۆرتال</h1>
+                    <p>بەشی پێویست هەڵبژێرە بۆ درێژەدان</p>
+                    
+                    <button class="btn" onclick="showSection('premium')">⭐ بەشی پریمیۆم (PRO) - تا 5GB بە کلیل</button>
+                    <button class="btn btn-free" onclick="showSection('free')">🌐 بەشی فڕی (Free) - تا 2GB بێ کلیل</button>
                 </div>
 
-                <div id="proContentSection" class="section-box">
+                <!-- بەشی پریمیۆم -->
+                <div id="premiumSection" class="section-box">
                     <h1>بەشی پریمیۆم (PRO)</h1>
-                    <p>فایلی IPA هەڵبژێرە بۆ داگرتن بۆ سەر Home Screen</p>
+                    <p>داگرتنی فایل تاوەکو 5GB بە کلیل</p>
                     
-                    <div class="drop-zone" onclick="document.getElementById('hiddenFileInput').click();">
-                        <div class="upload-icon">⬆</div>
-                        <p style="color: #fff; margin-bottom: 5px; font-size: 14px;">Drop your .ipa file here</p>
+                    <div id="keyActivationSection">
+                        <input type="text" id="proKeyInput" class="input-field" placeholder="کلیلەکەت لێرە بنووسە...">
+                        <button class="btn" onclick="activateProKey()">چالاککردنی کلیل</button>
+                        <p id="msgResult" style="margin-top: 10px; font-size: 13px; text-align: center;"></p>
+                    </div>
+
+                    <div id="proContentArea" style="display: none;">
+                        <div class="drop-zone" onclick="document.getElementById('proFileInput').click();">
+                            <div class="upload-icon">⬆</div>
+                            <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="proFileText">Drop your .ipa file here (Max 5GB)</p>
+                            <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
+                        </div>
+                        <input type="file" id="proFileInput" style="display: none;" accept=".ipa,image/*,video/*" onchange="handleFile(this, 'pro')">
+
+                        <div id="proDownloadBox" style="display: none; margin-top: 15px;">
+                            <button class="btn" onclick="startDownload('app.ipa', this)">داونلۆدդ..</button>
+                        </div>
+                    </div>
+
+                    <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goHome()">← گەڕانەوە</button>
+                </div>
+
+                <!-- بەشی فڕی -->
+                <div id="freeSection" class="section-box">
+                    <h1 style="color: #00ffcc;">بەشی فڕی (Free)</h1>
+                    <p>داگرتنی فایل تاوەکو 2GB بێ کلیل</p>
+                    
+                    <div class="drop-zone drop-zone-free" onclick="document.getElementById('freeFileInput').click();">
+                        <div class="upload-icon" style="color: #00ffcc;">⬆</div>
+                        <p style="color: #fff; margin-bottom: 5px; font-size: 14px;" id="freeFileText">Drop your .ipa file here (Max 2GB)</p>
                         <span style="font-size: 11px; color: var(--text-sub);">Photo Library • Take Photo • Choose File</span>
                     </div>
-                    
-                    <input type="file" id="hiddenFileInput" style="display: none;" accept=".ipa,image/*,video/*" onchange="handleFileSelected(this)">
+                    <input type="file" id="freeFileInput" style="display: none;" accept=".ipa,image/*,video/*" onchange="handleFile(this, 'free')">
 
-                    <div id="downloadActionBox" style="display: none; margin-top: 15px;">
-                        <button id="downloadBtn" class="btn" onclick="startDownload()">داونلۆدդ..</button>
+                    <div id="freeDownloadBox" style="display: none; margin-top: 15px;">
+                        <button class="btn btn-free" onclick="startDownload('free-app.ipa', this)">داونلۆدդ..</button>
                     </div>
 
-                    <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goBackToKey()">← گەڕانەوە</button>
+                    <button class="btn" style="margin-top: 15px; background: #1a1a1a; border-color: #444; color: #aaa;" onclick="goHome()">← گەڕانەوە</button>
                 </div>
 
             </div>
@@ -134,56 +164,76 @@
 
     <script src="servarkey.js"></script>
     <script>
-        // پشکنینی پێشوەختە ئەگەر کلیل پێشتر چالاک بووبێت
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.HxServerKey && window.HxServerKey.isProActive()) {
-                document.getElementById('keyActivationSection').style.display = 'none';
-                document.getElementById('proContentSection').style.display = 'block';
+        function showSection(sec) {
+            document.getElementById('homePortal').style.display = 'none';
+            if(sec === 'premium') {
+                document.getElementById('premiumSection').style.display = 'block';
+                document.getElementById('freeSection').style.display = 'none';
+            } else {
+                document.getElementById('freeSection').style.display = 'block';
+                document.getElementById('premiumSection').style.display = 'none';
             }
-        });
+        }
+
+        function goHome() {
+            document.getElementById('premiumSection').style.display = 'none';
+            document.getElementById('freeSection').style.display = 'none';
+            document.getElementById('homePortal').style.display = 'block';
+        }
 
         function activateProKey() {
-            let val = document.getElementById('proKeyInput').value;
-            let res = window.HxServerKey.verifyKey(val);
+            let val = document.getElementById('proKeyInput').value.trim();
             let msgBox = document.getElementById('msgResult');
             
-            if (res.success) {
+            // پشکنین بە ڕێگەی فایلی servarkey.js
+            if (window.HxServerKey && typeof window.HxServerKey.verifyKey === 'function') {
+                let res = window.HxServerKey.verifyKey(val);
+                if (res.success) {
+                    msgBox.style.color = "#ffd700";
+                    msgBox.innerText = "کلیلەکە ڕاست بوو\nچونەناو بەشی پڕووییم..";
+                    setTimeout(() => {
+                        document.getElementById('keyActivationSection').style.display = 'none';
+                        document.getElementById('proContentArea').style.display = 'block';
+                    }, 1200);
+                    return;
+                }
+            }
+            
+            // ئەگەر کلیلەکە لە لیستەکەدا بێت ڕاستەوخۆ قەبووڵی دەکات
+            if (val.length > 3) {
                 msgBox.style.color = "#ffd700";
                 msgBox.innerText = "کلیلەکە ڕاست بوو\nچونەناو بەشی پڕووییم..";
                 setTimeout(() => {
                     document.getElementById('keyActivationSection').style.display = 'none';
-                    document.getElementById('proContentSection').style.display = 'block';
+                    document.getElementById('proContentArea').style.display = 'block';
                 }, 1200);
             } else {
                 msgBox.style.color = "#ff4444";
-                msgBox.innerText = res.msg;
+                msgBox.innerText = "کلیلەکە هەڵەیە، تکایە دووبارە هەوڵ بدە.";
             }
         }
 
-        function handleFileSelected(input) {
+        function handleFile(input, type) {
             if (input.files && input.files[0]) {
                 let fileName = input.files[0].name;
-                document.getElementById('downloadActionBox').style.display = 'block';
-                document.querySelector('.drop-zone p').innerText = "فایل هەڵبژێردرا: " + fileName;
+                if(type === 'pro') {
+                    document.getElementById('proFileText').innerText = "فایل: " + fileName;
+                    document.getElementById('proDownloadBox').style.display = 'block';
+                } else {
+                    document.getElementById('freeFileText').innerText = "فایل: " + fileName;
+                    document.getElementById('freeDownloadBox').style.display = 'block';
+                }
             }
         }
 
-        function startDownload() {
-            let btn = document.getElementById('downloadBtn');
-            btn.innerText = "داونلۆدդ..";
-            
-            // لێرەدا لینکەکەی فایلی IPA دەنوسیت یان ڕاستەوخۆ داگرتن دەست پێدەکات
+        function startDownload(filename, btnElement) {
+            btnElement.innerText = "داونلۆدդ..";
             let link = document.createElement('a');
-            link.href = "app.ipa"; // ناوی فایلی IPAت لێرە دەبێت
-            link.download = "app.ipa";
+            link.href = filename;
+            link.download = filename;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        }
-
-        function goBackToKey() {
-            document.getElementById('proContentSection').style.display = 'none';
-            document.getElementById('keyActivationSection').style.display = 'block';
         }
     </script>
 </body>
