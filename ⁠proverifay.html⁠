@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hx-Speech | Proverifay Portal</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        :root {
+            --bg-color: #040404;
+            --card-bg: #101010;
+            --card-hover: #181818;
+            --border-color: rgba(0, 255, 204, 0.15);
+            --accent: #00ffcc;
+            --accent-glow: rgba(0, 255, 204, 0.25);
+            --text-main: #ffffff;
+            --text-sub: #888888;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .header-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        p.subtitle {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .verify-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            background: #080808;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .verify-btn {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .verify-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .result-box {
+            font-size: 14px;
+            text-align: center;
+            color: var(--accent);
+            min-height: 20px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: var(--text-sub);
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-link a:hover {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-card">
+            <h1>بەشی پشکنینی کلیل</h1>
+            <p class="subtitle">دڵنیابوونەوە لە کارپێکردنی بڕوانامە و کلیلەکان</p>
+        </div>
+
+        <div class="verify-box">
+            <input type="text" id="keyInput" class="input-field" placeholder="کلیلەکە لێرە بنووسە (مثال: HAMA-VIP-...)">
+            <button class="verify-btn" onclick="checkKey()">پشکنینی کلیل</button>
+            <div id="resultBox" class="result-box"></div>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← گەڕانەوە بۆ لاپەڕەی سەرەکی</a>
+        </div>
+    </div>
+
+    <script src="servarkey.js"></script>
+    <script>
+        function checkKey() {
+            const val = document.getElementById('keyInput').value.trim();
+            const res = document.getElementById('resultBox');
+            
+            if (!val) {
+                res.style.color = "#ff4444";
+                res.innerText = "تکایە کلیلێک بنووسە!";
+                return;
+            }
+
+            if (window.HxServerKey && window.HxServerKey.verifyKey(val)) {
+                res.style.color = "#00ffcc";
+                res.innerText = "✓ کلیلەکە دروستە و چالاکە!";
+            } else {
+                res.style.color = "#ff4444";
+                res.innerText = "✕ کلیلەکە هەڵەیە یان نەناسراوە!";
+            }
+        }
+    </script>
+</body>
+</html>
